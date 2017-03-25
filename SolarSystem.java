@@ -1,5 +1,8 @@
 package module9;
 
+ 
+
+
 import java.awt.*;
 
 import javax.imageio.ImageIO;
@@ -10,10 +13,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
 
 /**
  * <h1> solar System</h1>
@@ -34,7 +33,8 @@ import java.awt.event.*;
 
 public class SolarSystem extends JPanel implements ActionListener {
 	// instantiate an arraylist of planets that will be painted
-	ArrayList<datapoint> planets = new ArrayList<datapoint >();
+	ArrayList<planet> planets = new ArrayList<planet>();
+	ArrayList<comet> comets = new ArrayList<comet>();
 	// create the sun ( sun is taken because it has no orbit and will be treated separately)
 	datapoint sun =new datapoint("sun",Color.red,0,0,0,0,0,25);// the suns size is shrinked because it is too big to fit 
 	//initialise time variable and buttons.
@@ -92,19 +92,19 @@ public class SolarSystem extends JPanel implements ActionListener {
 				thesolarsystem = createAndDisplayGui();
 				//the relavant data are found from this website: http://www.enchantedlearning.com/subjects/astronomy/planets/				
 				//instantiate first five planet
-				datapoint Mercury = new datapoint("Mercury", Color.BLUE,0,0,0,87.96/365.26,0.39*100, 8*4878/12756);
-				datapoint Venus = new datapoint("Venus", Color.ORANGE,0,0,0,224.68 /365.26,0.72*100,  8*12104/12756);
-				datapoint Earth = new datapoint("Earth",   Color.GREEN,0,0,0,365.26/365.26,1*100,8 );
-				datapoint Mars = new datapoint("Mars", Color.BLACK,0,0,0,686.98/365.26,1.524*100 , 8* 6787/12756);
-				datapoint Jupiter = new datapoint("Jupiter", Color.DARK_GRAY,0,0,0,11.8625, 5.203*100, 1*142796/12756);	//size is shrinked because it is too big to be drawn 
-				datapoint comet1 = new comet("comet1", Color.DARK_GRAY,0,0,0,11.8625, 5.203*10, 1*2796/756,Mars);
+				planet Mercury = new planet("Mercury", Color.BLUE,0,0,0,87.96/365.26,0.39*100, 8*4878/12756);
+				planet Venus = new planet("Venus", Color.ORANGE,0,0,0,224.68 /365.26,0.72*100,  8*12104/12756);
+				planet Earth = new planet("Earth",   Color.GREEN,0,0,0,365.26/365.26,1*100,8 );
+				planet Mars = new planet("Mars", Color.BLACK,0,0,0,686.98/365.26,1.524*100 , 8* 6787/12756);
+				planet Jupiter = new planet("Jupiter", Color.DARK_GRAY,0,0,0,11.8625, 5.203*100, 1*142796/12756);	//size is shrinked because it is too big to be drawn 
+				comet comet1 = new comet("comet1", Color.DARK_GRAY,0,0,0,11.8625, 5.203*10, 1*2796/756,Mars);
 				//adding these planets into the display
 				thesolarsystem.planets.add(Mercury);
 				thesolarsystem.planets.add(Venus);
 				thesolarsystem.planets.add(Earth);
 				thesolarsystem.planets.add(Mars);
 				thesolarsystem.planets.add(Jupiter);
-				thesolarsystem.planets.add(comet1);
+				thesolarsystem.comets.add(comet1);
 			}
 		}
 				);
@@ -157,7 +157,7 @@ public class SolarSystem extends JPanel implements ActionListener {
 	}		
 	//calculate position for each planet.
 	public void rotateplanet() {
-		for(datapoint de : planets) {
+		for(planet de : planets) {
 			//angle are calculated using the fomula: angle+2*pi/(10000*year ratio)
 			double angle = de.getangle() + ( 2 * Math.PI / (10000 * de.getyearratio()));
 			//setx: top left x coordinate of the orbit are calulated using (centre point- radius/2+distance from the sun /2 *sin(angle)
@@ -165,6 +165,14 @@ public class SolarSystem extends JPanel implements ActionListener {
 			//sety: top left y coordinate of the orbit are calulated using (centre point- radius/2+distance from the sun /2 *cos(angle)
 			de.sety((int)(450-de.getradius()/2+ ((de.getdistancefromsun()/2)*Math.cos(angle))));
 			de.setangle(angle);
+			
+		}
+		for (comet def : comets){
+			def.getparent().gety();
+			def.getparent().getx();
+			
+			
+			
 		}
 	}
 	//paint planets through	paintUniverse(g) and the sun.
@@ -236,12 +244,6 @@ public class SolarSystem extends JPanel implements ActionListener {
 
 	}
 }
-
-
-
-
-
-
 
 
 

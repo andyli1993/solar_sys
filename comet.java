@@ -6,9 +6,9 @@ public class comet extends datapoint {
 	
 	
 	
-	datapoint parent;
+	planet parent;
 
-	public comet(String a, Color b, int c, int d, double e, double f, double g, int h,datapoint parent) {
+	public comet(String a, Color b, int c, int d, double e, double f, double g, int h,planet parent) {
 		super(a, b, c, d, e, f, g, h);
 		
 		this.parent= parent;
@@ -16,11 +16,12 @@ public class comet extends datapoint {
 	}
 	
 	
-	datapoint getparent(){
+	public planet getparent(){
 		
 		return parent;
 	}
 	
+
 	
 
 }
